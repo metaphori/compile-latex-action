@@ -21,6 +21,10 @@ inputs:
       description: "A comma-separated list of all successfully compiled files"
     compiled-files:
       description: "A comma-separated list of all the produced pdfs"
+  texfilter: 
+    description: 'Filter for LaTex files'
+    required: false
+    default: *.tex
 
 runs:
   using: "docker"

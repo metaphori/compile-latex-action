@@ -10,16 +10,12 @@ end
 command = ARGV[0] || 'rubber --unsafe --inplace -d --synctex -s -W all'
 verbose = ARGV[1].to_s.downcase == "true"
 output_variable = ARGV[2] || 'LATEX_SUCCESSES'
+texfilter = ARGV[3] || '*.tex'
 
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
 tex_files = Dir[
-    "#{initial_directory}*.tex",
-    "#{initial_directory}**/*.tex",
-    "#{initial_directory}*.TEX",
-    "#{initial_directory}**/*.TEX",
-    "#{initial_directory}*.TeX",
-    "#{initial_directory}**/*.TeX",
+    "#{initial_directory}**/#{texfilter}"
 ]
 puts "Found these tex files: #{tex_files}" if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
