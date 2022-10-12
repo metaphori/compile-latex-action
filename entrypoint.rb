@@ -14,6 +14,8 @@ texfilter = ARGV[3] || '*.tex'
 
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
+puts "Using filter '#{texfilter}'"
+puts "Searching #{initial_directory}#{texfilter}"
 tex_files = Dir[
     "#{initial_directory}#{texfilter}"
 ]
