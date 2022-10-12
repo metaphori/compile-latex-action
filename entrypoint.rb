@@ -15,9 +15,9 @@ texfilter = ARGV[3] || '*.tex'
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
 tex_files = Dir[
-    "#{initial_directory}**/#{texfilter}"
+    "#{initial_directory}#{texfilter}"
 ]
-puts "Found these tex files: #{tex_files}" if verbose
+puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
 tex_roots = tex_files.filter_map do |file|
     text = File.read(file)
