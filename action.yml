@@ -24,7 +24,7 @@ inputs:
   texfilter: 
     description: 'Filter for LaTex files'
     required: false
-    default: *.tex
+    default: '*.tex'
 
 runs:
   using: "docker"
