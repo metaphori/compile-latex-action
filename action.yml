@@ -33,3 +33,4 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.verbose }}
     - ${{ inputs.success }}
+    - ${{ inputs.texfilter }}
