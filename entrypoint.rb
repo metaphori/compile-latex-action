@@ -11,6 +11,14 @@ command = ARGV[0] || "TEXINPUTS='.:.//' rubber --unsafe --inplace -d --synctex -
 verbose = ARGV[1].to_s.downcase == "true"
 output_variable = ARGV[2] || 'LATEX_SUCCESSES'
 texfilter = ARGV[3] || '*.tex'
+latex_packages_to_install = ARGV[4] || [];
+
+latex_packages_to_install.each do |p|
+    command = "tlmgr install #{p}"
+    output = `#{command} 2>&1` 
+    puts(output) if verbose
+end
+
 
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
