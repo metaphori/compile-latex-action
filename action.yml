@@ -26,9 +26,9 @@ inputs:
     required: false
     default: '*.tex'
   latex_packages_to_install:
-    description: 'LaTex packages to install'
+    description: 'A comma-separated list of LaTex packages to install'
     required: false
-    default: ['beamer']    
+    default: 'beamer'
 
 runs:
   using: "docker"
