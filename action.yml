@@ -25,6 +25,10 @@ inputs:
     description: 'Filter for LaTex files'
     required: false
     default: '*.tex'
+  latex_packages_to_install:
+    description: 'LaTex packages to install'
+    required: false
+    default: ['beamer']    
 
 runs:
   using: "docker"
@@ -34,3 +38,4 @@ runs:
     - ${{ inputs.verbose }}
     - ${{ inputs.success }}
     - ${{ inputs.texfilter }}
+    - ${{ inputs.latex_packages_to_install }}
