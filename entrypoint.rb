@@ -11,7 +11,7 @@ command = ARGV[0] || "TEXINPUTS='.:.//' rubber --unsafe --inplace -d --synctex -
 verbose = ARGV[1].to_s.downcase == "true"
 output_variable = ARGV[2] || 'LATEX_SUCCESSES'
 texfilter = ARGV[3] || '*.tex'
-latex_packages_to_install = ARGV[4] || [];
+latex_packages_to_install = (ARGV[4] || "").split(/,/);
 
 latex_packages_to_install.each do |p|
     command = "tlmgr install #{p}"
