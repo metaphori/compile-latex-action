@@ -7,7 +7,7 @@ def warn(file, message)
     puts "W: #{"Warning on file #{file}:\n#{message}".gsub(/\R/, "\nW: ")}"
 end
 
-command = ARGV[0] || "TEXINPUTS='.:.//' rubber --unsafe --inplace -d --synctex -s -W all"
+command = ARGV[0] || "TEXINPUTS='.:.//:/usr/share/texmf-dist/tex/latex//' rubber --unsafe --inplace -d --synctex -s -W all"
 verbose = ARGV[1].to_s.downcase == "true"
 output_variable = ARGV[2] || 'LATEX_SUCCESSES'
 texfilter = ARGV[3] || '*.tex'
