@@ -14,9 +14,9 @@ texfilter = ARGV[3] || '*.tex'
 latex_packages_to_install = (ARGV[4] || "").split(/,/);
 
 latex_packages_to_install.each do |p|
-    command = "tlmgr install #{p}"
-    output = `#{command} 2>&1` 
-    puts(output) if verbose
+    cmd = "tlmgr install #{p}"
+    outcmd = `#{cmd} 2>&1` 
+    puts(outcmd) if verbose
 end
 
 
