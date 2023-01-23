@@ -30,6 +30,7 @@ tex_files = Dir[
 puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
 tex_roots = tex_files.filter_map do |file|
+    puts "Considering #{file}"
     text = File.read(file)
     match = text[magic_comment_matcher, 1]
     if match then
