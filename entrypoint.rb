@@ -23,10 +23,9 @@ end
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
 puts "Using filter '#{texfilter}'"
-puts "Searching #{initial_directory}#{texfilter}"
-tex_files = Dir[
-    "#{initial_directory}#{texfilter}"
-]
+tex_filters = texfilter.split(/,/).map { |f| initial_directory + f }
+puts "Searching #{tex_filters}"
+tex_files = Dir[*tex_filters]
 puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
 tex_roots = tex_files.filter_map do |file|
