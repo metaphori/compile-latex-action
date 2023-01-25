@@ -23,7 +23,8 @@ end
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
 puts "Using filter '#{texfilter}'"
-tex_filters = texfilter.split(/,/).map { |f| initial_directory + f }
+tex_filters = texfilter.split(/ /).
+tex_filters = texfilter.flat_map { |x| x.split(/,/) }.map { |f| initial_directory + f }
 puts "Searching #{tex_filters}"
 tex_files = Dir[*tex_filters]
 puts "Found these tex files: #{tex_files}" # if verbose
