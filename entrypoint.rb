@@ -11,7 +11,7 @@ command = ARGV[0] || "TEXINPUTS='.:.//' rubber --unsafe --inplace -d --synctex -
 verbose = ARGV[1].to_s.downcase == "true"
 output_variable = ARGV[2] || 'LATEX_SUCCESSES'
 texfilter = ARGV[3] || '*.tex'
-limit = ARGV[4].to_i || 100
+limit = ARGV[4].to_i || 20
 latex_packages_to_install = (ARGV[5] || "").split(/,/);
 
 latex_packages_to_install.each do |p|
@@ -19,7 +19,6 @@ latex_packages_to_install.each do |p|
     outcmd = `#{cmd} 2>&1` 
     puts(outcmd) if verbose
 end
-
 
 initial_directory = File.expand_path('.') + '/'
 puts "Working from #{initial_directory}"
@@ -29,19 +28,16 @@ puts "Searching #{tex_filters}"
 tex_files = Dir[*tex_filters]
 puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
-i = 0
 tex_roots = tex_files.filter_map do |file|
     puts "Considering #{file}"
     text = File.read(file)
     match = text[magic_comment_matcher, 1]
     if match 
-        i = i + 1
         puts("File #{file} matched a magic comment pointing to #{match}")
         directory = File.dirname(file)
         match = "#{directory}/#{match}"
         puts "The actual absolute file would be #{match}"
     end
-    break [file, match] if i >= limit
     [file, match]
 end
 tex_ancillary, tex_roots = tex_roots.partition { | _, match | match }
@@ -51,8 +47,8 @@ tex_ancillary.each do |file, match|
     File.file?(match) && tex_roots << match ||
         warn(file, "#{file} declares its root to be #{match}, but such file does not exist.")
 end
-tex_roots = tex_roots.to_set
-puts "Detected the following LaTeX roots: #{tex_roots}"
+tex_roots = tex_roots.to_set.take limit
+puts "Detected (and limited) the following LaTeX roots: #{tex_roots}"
 successes = Set[]
 previous_successes = nil
 failures = Set[]
