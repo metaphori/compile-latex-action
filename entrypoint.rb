@@ -27,10 +27,12 @@ puts "Using filter '#{texfilter}'"
 tex_filters = texfilter.split(/ /).flat_map { |x| x.split(/,/) }.map { |f| initial_directory + f }
 puts "Searching #{tex_filters}"
 tex_files = Dir[*tex_filters]
-tex_files = tex_files.take limit
 puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
+i = 0
 tex_roots = tex_files.filter_map do |file|
+    i = i + 1
+    break if i >= limit
     puts "Considering #{file}"
     text = File.read(file)
     match = text[magic_comment_matcher, 1]
