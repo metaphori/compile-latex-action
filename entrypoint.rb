@@ -32,7 +32,7 @@ magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]
 i = 0
 tex_roots = tex_files.filter_map do |file|
     i = i + 1
-    break if i >= limit
+    break [file, match] if i >= limit
     puts "Considering #{file}"
     text = File.read(file)
     match = text[magic_comment_matcher, 1]
