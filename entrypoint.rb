@@ -11,7 +11,8 @@ command = ARGV[0] || "TEXINPUTS='.:.//' rubber --unsafe --inplace -d --synctex -
 verbose = ARGV[1].to_s.downcase == "true"
 output_variable = ARGV[2] || 'LATEX_SUCCESSES'
 texfilter = ARGV[3] || '*.tex'
-latex_packages_to_install = (ARGV[4] || "").split(/,/);
+limit = ARGV[4] || 100
+latex_packages_to_install = (ARGV[5] || "").split(/,/);
 
 latex_packages_to_install.each do |p|
     cmd = "tlmgr install #{p}"
@@ -26,6 +27,7 @@ puts "Using filter '#{texfilter}'"
 tex_filters = texfilter.split(/ /).flat_map { |x| x.split(/,/) }.map { |f| initial_directory + f }
 puts "Searching #{tex_filters}"
 tex_files = Dir[*tex_filters]
+tex_files = tex_files.take limit
 puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
 tex_roots = tex_files.filter_map do |file|
