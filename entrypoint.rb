@@ -47,7 +47,7 @@ tex_ancillary.each do |file, match|
     File.file?(match) && tex_roots << match ||
         warn(file, "#{file} declares its root to be #{match}, but such file does not exist.")
 end
-tex_roots = tex_roots.to_set.take limit
+tex_roots = tex_roots.take(limit).to_set
 puts "Detected (and limited) the following LaTeX roots: #{tex_roots}"
 successes = Set[]
 previous_successes = nil
