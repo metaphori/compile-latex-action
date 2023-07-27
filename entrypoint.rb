@@ -31,17 +31,17 @@ puts "Found these tex files: #{tex_files}" # if verbose
 magic_comment_matcher = /^\s*%\s*!\s*[Tt][Ee][xX]\s*root\s*=\s*(.*\.[Tt][Ee][xX]).*$/
 i = 0
 tex_roots = tex_files.filter_map do |file|
-    i = i + 1
-    break [file, match] if i >= limit
     puts "Considering #{file}"
     text = File.read(file)
     match = text[magic_comment_matcher, 1]
-    if match then
+    if match 
+        i = i + 1
         puts("File #{file} matched a magic comment pointing to #{match}")
         directory = File.dirname(file)
         match = "#{directory}/#{match}"
         puts "The actual absolute file would be #{match}"
     end
+    break [file, match] if i >= limit
     [file, match]
 end
 tex_ancillary, tex_roots = tex_roots.partition { | _, match | match }
