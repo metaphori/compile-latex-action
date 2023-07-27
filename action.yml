@@ -29,6 +29,10 @@ inputs:
     description: 'A comma-separated list of LaTex packages to install'
     required: false
     default: 'beamer'
+  limit:
+    description: 'Limit LaTeX files to build to a number N'
+    required: false
+    default: 20
 
 runs:
   using: "docker"
@@ -38,4 +42,5 @@ runs:
     - ${{ inputs.verbose }}
     - ${{ inputs.success }}
     - ${{ inputs.texfilter }}
+    - ${{ inputs.limit }}
     - ${{ inputs.latex_packages_to_install }}
